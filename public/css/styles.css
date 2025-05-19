@@ -236,7 +236,10 @@ footer {
     gap: 20px;
 
   }
-
+.title {
+  font-size: 32px;
+  font-weight: bold;
+}
   #car_review {
     order: 2;
     /* Move to right */
