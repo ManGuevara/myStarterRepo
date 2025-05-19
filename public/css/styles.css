@@ -142,7 +142,11 @@ header {
   height: auto;
   border-radius: 5px;
 }
-
+.responsive-picture {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
 /*REVIEW SECTION*/
 
 .review-list {
