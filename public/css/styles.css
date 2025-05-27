@@ -230,6 +230,109 @@ footer {
   font-weight: bold;
 }
 
+/* IMPLEMENTATION CSS FOR CLASSIFICATION VIEW */
+/* INVENTORY DISPLAY STYLING */
+
+/*NAV SECTION*/
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  background-color: #333;
+}
+
+nav li {
+  position: relative;
+  border-bottom: 1px solid #444;
+}
+
+nav li:last-child {
+  border-bottom: none;
+}
+
+nav a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #555;
+}
+
+/* Active/highlighted menu item */
+nav a.active {
+  background-color: #0066cc;
+  font-weight: bold;
+}
+
+
+
+
+/*GRID SECTION*/
+
+#inv-display {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 0;
+  list-style: none;
+  margin: 1rem 0;
+}
+
+#inv-display li {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#inv-display img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.namePrice {
+  padding: 0.8rem;
+}
+
+.namePrice hr {
+  margin: 0.5rem 0;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+.namePrice h2 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.1rem;
+}
+
+.namePrice h2 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.namePrice span {
+  font-weight: bold;
+  color: #006600;
+  font-size: 1rem;
+}
+
+.notice {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+
+
 
 /*LARGE VIEW*/
 
@@ -310,4 +413,63 @@ footer {
     line-height: 30px;
     height: 50px;
   }
+
+/* IMPLEMENTATION CSS FOR CLASSIFICATION VIEW */
+/* INVENTORY DISPLAY STYLING */
+
+/*NAV SECTION*/
+nav ul {
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  nav li {
+    border-bottom: none;
+    border-right: 1px solid #444;
+    flex: 1 0 auto;
+  }
+
+  nav li:last-child {
+    border-right: none;
+  }
+
+  nav a {
+    text-align: center;
+    padding: 1rem 1.5rem;
+  }
+
+/*GRID SECTION*/
+#inv-display {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  #inv-display li {
+    border-width: 2px;
+  }
+
+  #inv-display img {
+    height: 180px;
+  }
+
+  .namePrice {
+    padding: 1rem;
+  }
+
+  .namePrice h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .namePrice span {
+    font-size: 1.1rem;
+  }
+
+  .notice {
+    padding: 2rem;
+    font-size: 1.1rem;
+  }
+
 }
