@@ -331,6 +331,46 @@ nav a.active {
   padding: 1.5rem;
 }
 
+/*IMPLEMENTATION FOR DETAIL VIEW*/
+.inventory-detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+.inventory-image {
+    width: 100%;
+}
+
+.inventory-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 100%; /* Prevent overflow */
+}
+
+.inventory-details {
+    width: 100%;
+}
+
+.price-mileage {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.price-mileage strong {
+    color: #333;
+}
+
+.inventory-description {
+    line-height: 1.6;
+    overflow-wrap: break-word; /* Prevent text overflow */
+}
 
 
 
@@ -471,5 +511,26 @@ nav ul {
     padding: 2rem;
     font-size: 1.1rem;
   }
+
+/*IMPLEMENTATION FOR DETAIL VIEW*/
+
+.inventory-detail-container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .inventory-image {
+        flex: 1;
+        position: sticky;
+        top: 1rem; /* Optional: keeps image visible when scrolling */
+    }
+    
+    .inventory-details {
+        flex: 1;
+        padding-left: 2rem;
+    }
+
+
+
 
 }

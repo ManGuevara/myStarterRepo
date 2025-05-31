@@ -2,6 +2,7 @@
 
 <% if (title){ %>
 <h1><%= title %></h1>
+<% if (status) { %><p>(Error code: <%= status %>)</p><% } %>
 <%} else {
     res.redirect('/')
 } %>
