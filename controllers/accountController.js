@@ -1,0 +1,21 @@
+const utilities = require('../utilities');
+
+
+/* ****************************************
+*  Deliver login view
+* *************************************** */
+
+async function buildLogin(req, res, next) {
+  let nav = await utilities.getNav()
+
+  res.render("account/login", {
+    title: "Login",
+    nav,
+    errors: req.flash('error') || null,  // Standardized flash access
+    message: req.flash('success') || null // Clear type differentiation
+  })
+}
+
+
+
+module.exports = { buildLogin }
