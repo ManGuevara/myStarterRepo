@@ -1,0 +1,36 @@
+<%- include('../partials/flash-messages') %>
+
+<div class="registration-container">
+    <h1><%= title %></h1>
+
+    <form action="/account/register" method="post" class="registration-form">
+        <div class="form-group">
+            <label for="account_firstname">First Name</label>
+            <input type="text" class="form-control" id="account_firstname" 
+                   name="account_firstname" required>
+        </div>
+
+        <div class="form-group">
+            <label for="account_lastname">Last Name</label>
+            <input type="text" class="form-control" id="account_lastname" 
+                   name="account_lastname" required>
+        </div>
+
+        <div class="form-group">
+            <label for="account_email">Email Address</label>
+            <input type="email" class="form-control" id="account_email" 
+                   name="account_email" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+            <label for="account_password">Password</label>
+            <input type="password" class="form-control" id="account_password" 
+                   name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+            <small class="form-text text-muted">
+                Must be at least 12 characters with 1 uppercase, 1 number, and 1 special character
+            </small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>

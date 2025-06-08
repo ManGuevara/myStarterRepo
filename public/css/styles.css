@@ -426,6 +426,28 @@ nav a.active {
     text-decoration: underline;
 }
 
+/* REGISTRATION VIEW FORM STYLES */
+.registration-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.registration-form .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.registration-form .form-text {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+
 
 /* Flash Messages */
 .flash-message {

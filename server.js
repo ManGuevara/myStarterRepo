@@ -16,6 +16,7 @@ const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const accountRoute = require('./routes/accountRoute')
+const bodyParser = require("body-parser")
 
 /* ***********************
  * View Engine and Templates
@@ -45,6 +46,9 @@ app.use(function(req, res, next){
   next()
 })
 
+// For body parser//
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /* ***********************
  * Routes
