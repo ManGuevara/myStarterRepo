@@ -26,6 +26,9 @@ async function buildRegister(req, res, next) {
     nav,
     errors: null,
     message: null
+    // account_firstname: null, 
+    // account_lastname: null,
+    // account_email: null
   });
 }
 

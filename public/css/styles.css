@@ -468,6 +468,33 @@ nav a.active {
   border: 1px solid #f5c6cb;
 }
 
+
+/* Error Messages */
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.alert-danger ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+/* Sticky Form Fields */
+.form-control {
+  border-color: #ced4da;
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+
+
 /*LARGE VIEW*/
 
 @media (min-width: 992px) {
