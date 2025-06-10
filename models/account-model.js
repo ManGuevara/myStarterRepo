@@ -25,4 +25,27 @@ async function checkExistingEmail(account_email) {
   }
 }
 
-module.exports = { registerAccount, checkExistingEmail };
+
+/* *****************************
+* Authenticate user
+* ***************************** */
+async function authenticate(account_email, account_password) {
+  try {
+    const sql = "SELECT * FROM account WHERE account_email = $1";
+    const data = await pool.query(sql, [account_email]);
+    
+    if (data.rowCount > 0) {
+      const account = data.rows[0];
+      // In production, use bcrypt.compare()
+      if (account_password === account.account_password) {
+        return account;
+      }
+    }
+    return null;
+  } catch (error) {
+    return error.message;
+  }
+}
+
+
+module.exports = { registerAccount, checkExistingEmail, authenticate  };

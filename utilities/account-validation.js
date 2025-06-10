@@ -3,6 +3,50 @@ const accountModel = require("../models/account-model")
 const { body, validationResult } = require("express-validator");
 const validate = {};
 
+
+/* **********************************
+ *  Login Data Validation Rules
+ * ********************************* */
+validate.loginRules = () => {
+  return [
+    // Email validation
+    body("account_email")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("A valid email is required."),
+
+    // Password validation
+    body("account_password")
+      .trim()
+      .notEmpty()
+      .withMessage("A password is required.")
+  ];
+};
+
+/* ******************************
+ * Check login data and return errors or continue
+ * ***************************** */
+validate.checkLoginData = async (req, res, next) => {
+  const { account_email } = req.body;
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("account/login", {
+      errors: errors.array(),
+      title: "Login",
+      nav,
+      account_email // Make email sticky
+    });
+    return;
+  }
+  next();
+};
+
+
 /* **********************************
  *  Registration Data Validation Rules
  * ********************************* */
@@ -75,5 +119,6 @@ validate.checkRegData = async (req, res, next) => {
   }
   next();
 };
+
 
 module.exports = validate;
