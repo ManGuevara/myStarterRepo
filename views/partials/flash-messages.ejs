@@ -1,4 +1,4 @@
-<% if (message) { %>
+<!-- <% if (message) { %>
   <div class="flash-message success">
     <p><%= message %></p>
   </div>
@@ -10,5 +10,26 @@
       <p><%= error %></p>
     <% }) %>
   </div>
+<% } %> -->
+
+
+
+ <% if (message) { %>
+  <div class="alert alert-success flash-message">
+    <%= message %>
+  </div>
 <% } %>
 
+<% if (info) { %>
+  <div class="alert alert-info flash-message">
+    <%= info %>
+  </div>
+<% } %>
+
+<% if (errors && errors.length > 0) { %>
+  <div class="alert alert-danger flash-message">
+    <% errors.forEach(error => { %>
+      <p><%= error %></p>
+    <% }) %>
+  </div>
+<% } %> 

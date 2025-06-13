@@ -40,11 +40,14 @@ app.set("layout", "./layouts/layout") // not at views root
 }))
 
 // Express Messages Middleware
-app.use(require('connect-flash')())
-app.use(function(req, res, next){
-  res.locals.messages = require('express-messages')(req, res)
-  next()
-})
+
+app.use(require('connect-flash')());
+app.use((req, res, next) => {
+  res.locals.message = req.flash('success')[0]; // Single success message
+  res.locals.errors = req.flash('error'); // Array of error messages
+  res.locals.info = req.flash('info')[0]; // Single info message
+  next();
+});
 
 // For body parser//
 app.use(bodyParser.json());

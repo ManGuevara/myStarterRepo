@@ -8,4 +8,8 @@ router.get("/detail/:invId", invController.buildByInventoryId);//ADDED TASK
 router.get("/trigger-error", (req, res, next) => {
     next(new Error("Intentional 500 error - Test"))
 })//ADDED TASK
+
+// Inventory management route
+router.get('/', invController.buildManagement);
+
 module.exports = router;
