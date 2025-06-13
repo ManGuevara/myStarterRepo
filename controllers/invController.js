@@ -58,4 +58,67 @@ invCont.buildManagement = async function(req, res, next) {
     }
 }
 
+/* ***************************
+ *  Build Add Classification View
+ * ************************** */
+invCont.buildAddClassification = async function(req, res, next) {
+  try {
+    let nav = await utilities.getNav()
+    res.render("./inventory/add-classification", {
+      title: "Add New Classification",
+      nav,
+      errors: null,
+      messages: req.flash()
+    })
+  } catch (error) {
+    req.flash('error', 'Sorry, the classification view could not be built.')
+    res.redirect('/inv/')
+  }
+}
+
+/* ***************************
+ *  Process Add Classification
+ * ************************** */
+invCont.addClassification = async function(req, res, next) {
+  const { classification_name } = req.body;
+  
+  // Server-side validation
+  const errors = [];
+  if (!classification_name) {
+    errors.push('Classification name is required');
+  } else if (!/^[a-zA-Z0-9]+$/.test(classification_name)) {
+    errors.push('Only letters and numbers allowed (no spaces/special characters)');
+  }
+
+  if (errors.length > 0) {
+    let nav = await utilities.getNav();
+    return res.render("./inventory/add-classification", {
+      title: "Add New Classification",
+      nav,
+      errors, // Array of error messages
+      message: null, // Explicitly setting null for success message
+      info: null    // Explicitly setting null for info message
+    });
+  }
+
+  try {
+    const result = await invModel.addClassification(classification_name);
+    if (result) {
+      req.flash('success', `Successfully added ${classification_name} classification!`);
+      return res.redirect('/inv/');
+    }
+  } catch (error) {
+    let nav = await utilities.getNav();
+    return res.render("./inventory/add-classification", {
+      title: "Add New Classification",
+      nav,
+      errors: ['Classification may already exist'],
+      message: null,
+      info: null
+    });
+  }
+}
+
+
+
   module.exports = invCont
