@@ -3,8 +3,16 @@ const pool = require("../database/")
 /* ***************************
  *  Get all classification data
  * ************************** */
-async function getClassifications(){
-  return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
+async function getClassifications() {
+  try {
+    const data = await pool.query(
+      "SELECT classification_id, classification_name FROM public.classification ORDER BY classification_name"
+    );
+    return data; 
+  } catch (error) {
+    console.error("getClassifications error:", error);
+    return { rows: [] }; 
+  }
 }
 
 /* ***************************
@@ -53,4 +61,52 @@ async function addClassification(classification_name) {
     }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryItemById,addClassification};
+/***adding inventory task 3 */
+
+async function addInventory({
+    classification_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color
+}) {
+    try {
+        const sql = `INSERT INTO inventory (
+            classification_id,
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_miles,
+            inv_color
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`
+        
+        return await pool.query(sql, [
+            classification_id,
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_miles,
+            inv_color
+        ])
+    } catch (error) {
+        console.error("Error adding inventory:", error)
+        return null
+    }
+}
+
+
+
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryItemById,addClassification, addInventory};

@@ -1,0 +1,92 @@
+<%- include('../partials/flash-messages') %>
+
+<div class="container mt-5">
+    <h1>Add New Inventory Item</h1>
+
+    <form action="/inv/add-inventory" method="POST">
+        <!-- Classification Dropdown -->
+        <div class="mb-3">
+            <label for="classificationList" class="form-label">Classification*</label>
+            <%- classificationList %>
+            <div class="form-text">Select a vehicle classification</div>
+        </div>
+
+        <!-- Make -->
+        <div class="mb-3">
+            <label for="inv_make" class="form-label">Make*</label>
+            <input type="text" class="form-control" id="inv_make" name="inv_make"
+                value="<%= typeof inv_make !== 'undefined' ? inv_make : '' %>" required minlength="1" maxlength="50">
+            <div class="form-text">Required, 1-50 characters</div>
+        </div>
+
+        <!-- Model -->
+        <div class="mb-3">
+            <label for="inv_model" class="form-label">Model*</label>
+            <input type="text" class="form-control" id="inv_model" name="inv_model"
+                value="<%= typeof inv_model !== 'undefined' ? inv_model : '' %>" required minlength="1" maxlength="50">
+            <div class="form-text">Required, 1-50 characters</div>
+        </div>
+
+        <!-- Year -->
+        <div class="mb-3">
+            <label for="inv_year" class="form-label">Year*</label>
+            <input type="number" class="form-control" id="inv_year" name="inv_year"
+                value="<%= typeof inv_year !== 'undefined' ? inv_year : '' %>" required min="1900"
+                max="<%= new Date().getFullYear() + 1 %>" oninput="this.value = this.value.slice(0, 4)">
+            <div class="form-text">Required, 4-digit year (1900-<%= new Date().getFullYear() + 1 %>)</div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="inv_description" class="form-label">Description*</label>
+            <textarea class="form-control" id="inv_description" name="inv_description" rows="3"
+                required><%= typeof inv_description !== 'undefined' ? inv_description : '' %></textarea>
+            <div class="form-text">Required vehicle description</div>
+        </div>
+
+        <!-- Image Paths -->
+        <div class="mb-3">
+            <label for="inv_image" class="form-label">Image Path*</label>
+            <input type="text" class="form-control" id="inv_image" name="inv_image"
+                value="<%= typeof inv_image !== 'undefined' ? inv_image : '/images/vehicles/no-image.png' %>" required>
+            <div class="form-text">Path to vehicle image</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="inv_thumbnail" class="form-label">Thumbnail Path*</label>
+            <input type="text" class="form-control" id="inv_thumbnail" name="inv_thumbnail"
+                value="<%= typeof inv_thumbnail !== 'undefined' ? inv_thumbnail : '/images/vehicles/no-image-tn.png' %>"
+                required>
+            <div class="form-text">Path to vehicle thumbnail</div>
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3">
+            <label for="inv_price" class="form-label">Price*</label>
+            <input type="number" class="form-control" id="inv_price" name="inv_price"
+                value="<%= typeof inv_price !== 'undefined' ? inv_price : '' %>" required min="0" step="0.01">
+            <div class="form-text">Required, numbers only (e.g. 12345.67)</div>
+        </div>
+
+        <!-- Miles -->
+        <div class="mb-3">
+            <label for="inv_miles" class="form-label">Miles*</label>
+            <input type="number" class="form-control" id="inv_miles" name="inv_miles"
+                value="<%= typeof inv_miles !== 'undefined' ? inv_miles : '' %>" required min="0">
+            <div class="form-text">Required, whole numbers only (no commas)</div>
+        </div>
+
+        <!-- Color -->
+        <div class="mb-3">
+            <label for="inv_color" class="form-label">Color*</label>
+            <input type="text" class="form-control" id="inv_color" name="inv_color"
+                value="<%= typeof inv_color !== 'undefined' ? inv_color : '' %>" required minlength="1" maxlength="20">
+            <div class="form-text">Required vehicle color (1-20 characters)</div>
+        </div>
+
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Add Vehicle</button>
+            <a href="/inv/" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

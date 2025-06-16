@@ -369,7 +369,7 @@ nav a.active {
 
 .inventory-description {
     line-height: 1.6;
-    overflow-wrap: break-word; /* Prevent text overflow */
+    overflow-wrap: break-word; 
 }
 
 
@@ -491,6 +491,133 @@ nav a.active {
 
 .is-invalid {
   border-color: #dc3545 !important;
+}
+
+/* Management View Styling  */
+.card.mt-4 {
+    max-width: 400px;
+    margin: 2rem auto;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.h4.card-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.d-grid.gap-3 {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.btn-primary.btn-lg {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.btn-primary.btn-lg:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+/* Inventory Form Styling */
+.container.mt-5 {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.container.mt-5 h1 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    font-size: 1.8rem;
+}
+
+/* Form input styling */
+.form-control, .form-select {
+    border: 1px solid #ced4da;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Labels and help text */
+.form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.form-text {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-top: -0.25rem;
+    margin-bottom: 1rem;
+}
+
+/* Required field indicator */
+.form-label:after {
+    content: " *";
+    color: #e74c3c;
+}
+
+/* Textarea specific */
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Button styling */
+.d-grid.gap-2 {
+    margin-top: 1.5rem;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    border-color: #95a5a6;
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+    border-color: #7f8c8d;
 }
 
 

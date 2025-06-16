@@ -12,8 +12,8 @@ async function buildLogin(req, res, next) {
   res.render("account/login", {
     title: "Login",
     nav,
-    errors: req.flash('error') || null,  // Standardized flash access
-    message: req.flash('success') || null // Clear type differentiation
+    errors: req.flash('error') || null, 
+    message: req.flash('success') || null
   })
 }
 
@@ -27,9 +27,7 @@ async function buildRegister(req, res, next) {
     nav,
     errors: null,
     message: null
-    // account_firstname: null, 
-    // account_lastname: null,
-    // account_email: null
+   
   });
 }
 
@@ -43,7 +41,7 @@ async function registerAccount(req, res) {
   // Hash the password before storing
   let hashedPassword
   try {
-    // regular password and cost (salt is generated automatically)
+    // regular password and cost 
     hashedPassword = await bcrypt.hashSync(account_password, 10)
   } catch (error) {
     req.flash("notice", 'Sorry, there was an error processing the registration.')
@@ -64,10 +62,10 @@ async function registerAccount(req, res) {
 
     if (regResult.rowCount > 0) {
       req.flash(
-        "success", // Changed from "notice" to match our flash types
+        "success", 
         `Congratulations, you're registered ${account_firstname}. Please log in.`
       );
-      return res.redirect("/account/login"); // ✅ Changed to login page
+      return res.redirect("/account/login"); 
     }
   } catch (error) {
     req.flash("error", "Registration failed. Please try again.");
