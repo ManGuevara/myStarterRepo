@@ -235,4 +235,67 @@ invCont.addInventory = async function(req, res) {
     }
 };
 
+/* ***************************
+ *  Build delete confirmation view
+ * ************************** */
+invCont.deleteView = async function (req, res, next) {
+  try {
+    const inv_id = parseInt(req.params.inv_id);
+    let nav = await utilities.getNav();
+    const itemData = await invModel.getInventoryItemById(inv_id);
+    
+    if (!itemData || itemData.length === 0) {
+      req.flash('error', 'Inventory item not found');
+      return res.redirect('/inv/');
+    }
+
+    const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`;
+    
+    res.render("./inventory/delete-confirm", {
+      title: "Delete " + itemName,
+      nav,
+      errors: null,
+      inv_id: itemData[0].inv_id,
+      inv_make: itemData[0].inv_make,
+      inv_model: itemData[0].inv_model,
+      inv_year: itemData[0].inv_year,
+      inv_price: itemData[0].inv_price,
+      messages: req.flash()
+    });
+  } catch (error) {
+    console.error("Error building delete confirmation view:", error);
+    req.flash('error', 'Sorry, the delete confirmation view could not be built.');
+    res.redirect('/inv/');
+  }
+};
+
+/* ***************************
+ *  Process inventory item deletion
+ * ************************** */
+invCont.deleteItem = async function (req, res, next) {
+  try {
+    const inv_id = parseInt(req.body.inv_id);
+    let nav = await utilities.getNav();
+    
+    // Call model to delete item
+    const deleteResult = await invModel.deleteInventoryItem(inv_id);
+
+    if (deleteResult) {
+      req.flash("success", 'The deletion was successful.');
+      res.redirect('/inv/');
+    } else {
+      req.flash("error", 'Sorry, the delete failed.');
+      res.redirect(`/inv/delete/${inv_id}`);
+    }
+  } catch (error) {
+    console.error("Error deleting inventory item:", error);
+    req.flash("error", 'Sorry, an error occurred during deletion.');
+    res.redirect(`/inv/delete/${req.body.inv_id}`);
+  }
+};
+
+
+
+
+
   module.exports = invCont
