@@ -15,3 +15,27 @@
         </div>
     </div>
 </div>
+
+
+<form action="/inv/delete-confirm" method="POST" class="mb-4">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-8">
+            <label for="inv_id" class="form-label">Select Vehicle to Delete</label>
+            <select class="form-select" id="inv_id" name="inv_id" required>
+                <option value="">-- Choose a vehicle to delete --</option>
+                <% classifications.forEach(classification => { %>
+                    <optgroup label="<%= classification.classification_name %>">
+                        <% classification.inventory.forEach(vehicle => { %>
+                            <option value="<%= vehicle.inv_id %>">
+                                <%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %>
+                            </option>
+                        <% }); %>
+                    </optgroup>
+                <% }); %>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</form>

@@ -124,4 +124,48 @@ async function deleteInventoryItem(inv_id) {
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryItemById,addClassification, addInventory,deleteInventoryItem};
+/* ***************************
+ * Get classifications with their inventory items
+ * ************************** */
+async function getClassificationsWithInventory() {
+  try {
+    const data = await pool.query(`
+      SELECT c.classification_id, c.classification_name, 
+             i.inv_id, i.inv_make, i.inv_model, i.inv_year
+      FROM classification c
+      LEFT JOIN inventory i ON c.classification_id = i.classification_id
+      ORDER BY c.classification_name, i.inv_year DESC, i.inv_make, i.inv_model
+    `);
+    
+    // Group by classification
+    const result = [];
+    let currentClassification = null;
+    
+    data.rows.forEach(row => {
+      if (!currentClassification || currentClassification.classification_id !== row.classification_id) {
+        currentClassification = {
+          classification_id: row.classification_id,
+          classification_name: row.classification_name,
+          inventory: []
+        };
+        result.push(currentClassification);
+      }
+      
+      if (row.inv_id) {
+        currentClassification.inventory.push({
+          inv_id: row.inv_id,
+          inv_make: row.inv_make,
+          inv_model: row.inv_model,
+          inv_year: row.inv_year
+        });
+      }
+    });
+    
+    return result;
+  } catch (error) {
+    console.error("getClassificationsWithInventory error:", error);
+    return [];
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryItemById,addClassification, addInventory,deleteInventoryItem, getClassificationsWithInventory};

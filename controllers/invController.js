@@ -43,16 +43,24 @@ invCont.triggerError = async function(req, res) {
 // Build inventory management view
 invCont.buildManagement = async function(req, res, next) {
     try {
-        // Test messages (remove after testing)
-        req.flash('success', 'Welcome to Inventory Management');
-        req.flash('info', 'Please select an action below');
+        let nav = await utilities.getNav();
+        const classifications = await invModel.getClassificationsWithInventory();
         
-        const nav = await utilities.getNav();
+        // Initialize selectedVehicle as empty object if null
+        let selectedVehicle = req.session.selectedVehicle || {};
+        if (req.session.selectedVehicle) {
+            delete req.session.selectedVehicle;
+        }
+
         res.render("inventory/management", {
             title: "Inventory Management",
-            nav
+            nav,
+            classifications,
+            selectedVehicle,
+            messages: req.flash()
         });
     } catch (error) {
+        console.error("buildManagement error:", error);
         req.flash('error', 'Failed to load management view');
         res.redirect('/');
     }
@@ -294,8 +302,64 @@ invCont.deleteItem = async function (req, res, next) {
   }
 };
 
+/* ***************************
+ *  Process vehicle selection (NEW FUNCTION)
+ * ************************** */
+invCont.processSelection = async function(req, res, next) {
+    try {
+        const inv_id = parseInt(req.body.inv_id);
+        const vehicle = await invModel.getInventoryItemById(inv_id);
+
+        if (!vehicle || vehicle.length === 0) {
+            req.flash('error', 'Vehicle not found');
+            return res.redirect('/inv/management');
+        }
+
+        // Store selected vehicle in session
+        req.session.selectedVehicle = vehicle[0];
+        
+        res.redirect('/inv/management');
+    } catch (error) {
+        console.error("processSelection error:", error);
+        req.flash('error', 'Error processing vehicle selection');
+        res.redirect('/inv/management');
+    }
+}
 
 
+/* ***************************
+ *  Process direct delete confirmation
+ * ************************** */
+invCont.confirmDelete = async function(req, res, next) {
+    try {
+        const inv_id = parseInt(req.body.inv_id);
+        let nav = await utilities.getNav();
+        const itemData = await invModel.getInventoryItemById(inv_id);
+        
+        if (!itemData || itemData.length === 0) {
+            req.flash('error', 'Vehicle not found');
+            return res.redirect('/inv/');
+        }
+
+        const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`;
+        
+        res.render("./inventory/delete-confirm", {
+            title: "Delete " + itemName,
+            nav,
+            errors: null,
+            inv_id: itemData[0].inv_id,
+            inv_make: itemData[0].inv_make,
+            inv_model: itemData[0].inv_model,
+            inv_year: itemData[0].inv_year,
+            inv_price: itemData[0].inv_price,
+            messages: req.flash()
+        });
+    } catch (error) {
+        console.error("confirmDelete error:", error);
+        req.flash('error', 'Error processing delete request');
+        res.redirect('/inv/');
+    }
+};
 
 
   module.exports = invCont
